@@ -191,15 +191,20 @@
 
             const time = Math.floor(Date.now()/1000)+600;
             const str = `${tgId}||${time}`;
-            const body = beginCell()
-                .storeUint(0, 32)
-                .storeStringTail(str)
-                .endCell();
+        //    const body = beginCell()
+        //        .storeUint(0, 32)
+        //        .storeStringTail(str)
+        //        .endCell();
+
+        //    const paymentRequest = {
+        //        address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x',
+        //        amount: amount.toString(), // 支付金额
+        //        payload:body.toBoc().toString('base64'),
+        //    };
 
             const paymentRequest = {
                 address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x',
                 amount: amount.toString(), // 支付金额
-                payload:body.toBoc().toString('base64'),
             };
             
             const response = await tonConnectUI.sendTransaction({
