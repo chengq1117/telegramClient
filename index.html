@@ -86,8 +86,9 @@
         </ul>
 
         <h1>Buttons</h1>
-        <!-- <button onclick="Telegram.WebApp.expand();">Expand Webview</button> -->
+        <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button>
+        <button onclick="sendTransaction();">sendTransaction</button>
 
         <div id="ton-connect"></div>
     </main>
@@ -183,6 +184,30 @@
 
         // 断开钱包
         // await tonConnectUI.disconnect();
+
+        async function sendTransaction() {
+            const amount = 1;
+
+            const time = Math.floor(Date.now()/1000)+600;
+            const str = `${PlayerModel.inst.tg_userInfo.id}||${time}`;
+            const body = beginCell()
+                .storeUint(0, 32)
+                .storeStringTail(str)
+                .endCell();
+
+            const paymentRequest = {
+                address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x',
+                amount: amount.toString(), // 支付金额
+                payload:body.toBoc().toString('base64'),
+            };
+            
+            const response = await tonConnectUI.sendTransaction({
+                validUtil: time,
+                messages:[paymentRequest],
+            });
+
+            Telegram.WebApp.showAlert(`pay succeed! ${response}`);
+        };
     </script>
 
     <!-- Eruda is console for mobile browsers -->
