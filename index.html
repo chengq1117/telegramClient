@@ -60,6 +60,7 @@
             top: 30px;
         }
     </style>
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
 
 <body>
@@ -85,8 +86,10 @@
         </ul>
 
         <h1>Buttons</h1>
-        <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
+        <!-- <button onclick="Telegram.WebApp.expand();">Expand Webview</button> -->
         <button onclick="toggleMainButton();">Toggle Main Button</button>
+
+        <div id="ton-connect"></div>
     </main>
     <div id="viewport"></div>
     <div id="viewport-params-size"></div>
@@ -153,6 +156,25 @@
             document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
         });
 
+    </script>
+
+    <script>
+        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: 'https://https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
+            buttonRootId: 'ton-connect'
+        });
+    </script>
+    <script>
+        async function connectToWallet() {
+            const connectedWallet = await tonConnectUI.connectWallet();
+            // Do something with connectedWallet if needed
+            console.log(connectedWallet);
+        }
+    
+        // Call the function
+        connectToWallet().catch(error => {
+            console.error("Error connecting to wallet:", error);
+        });
     </script>
 
     <!-- Eruda is console for mobile browsers -->
