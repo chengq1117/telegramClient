@@ -168,7 +168,9 @@
         //});
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
-            buttonRootId: 'ton-connect'
+            buttonRootId: 'ton-connect',
+            chain: 'mainnet',
+            network: 'mainnet', // mainnet
         });
 
         tonConnectUI.uiOptions = {
@@ -206,8 +208,10 @@
         //        payload:body.toBoc().toString('base64'),
         //    };
 
+            //UQDZRhx1TZH1hTTZCzQTl-FCGdbgKvGZNnEemsLHcHuTeXCb 陈波ton地址
+
             const paymentRequest = {
-                address: 'UQDZRhx1TZH1hTTZCzQTl-FCGdbgKvGZNnEemsLHcHuTeXCb',
+                address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x',
                 amount: amount.toString(), // 支付金额
             };
 
