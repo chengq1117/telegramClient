@@ -87,7 +87,7 @@
 
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
-        <button onclick="toggleMainButton();">Toggle Main Button</button>
+        <!-- <button onclick="toggleMainButton();">Toggle Main Button</button> -->
         <button onclick="sendTransaction();">sendTransaction</button>
 
         <div id="ton-connect"></div>
@@ -192,7 +192,7 @@
         // await tonConnectUI.disconnect();
 
         async function sendTransaction() {
-            const amount = 10000000;
+            const amount = 0.01*1000000000;
             //const tgId = Telegram.WebApp.initDataUnsafe.user.id;
 
             const time = Math.floor(Date.now()/1000)+600;
