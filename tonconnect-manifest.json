@@ -1,5 +1,5 @@
 {
-    "url": "https://chengq1117.github.io/telegramClient", // required
-    "name": "FUGA", // required
-    "iconUrl": "https://chengq1117.github.io/telegramClient/assets/tapps.png", // required
+    "url": "https://chengq1117.github.io/telegramClient",
+    "name": "slotbetBot",
+    "iconUrl": "https://chengq1117.github.io/telegramClient/assets/tapps.png"
 }
