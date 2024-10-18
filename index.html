@@ -187,9 +187,10 @@
 
         async function sendTransaction() {
             const amount = 1;
+            const tgId = Telegram.WebApp.initDataUnsafe.user.id;
 
             const time = Math.floor(Date.now()/1000)+600;
-            const str = `${PlayerModel.inst.tg_userInfo.id}||${time}`;
+            const str = `${tgId}||${time}`;
             const body = beginCell()
                 .storeUint(0, 32)
                 .storeStringTail(str)
