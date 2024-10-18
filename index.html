@@ -160,11 +160,15 @@
     </script>
 
     <script>
+        //const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        //    manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
+        //    buttonRootId: 'ton-connect',
+        //    chain:'mainnet',
+        //    network:'mainnet' // 或 'mainnet' 根据环境选择
+        //});
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
-            buttonRootId: 'ton-connect',
-            chain:'mainnet',
-            network:'mainnet' // 或 'mainnet' 根据环境选择
+            buttonRootId: 'ton-connect'
         });
 
         tonConnectUI.uiOptions = {
