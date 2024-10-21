@@ -1,5 +1,7 @@
 {
-    "url": "https://chengq1117.github.io/telegramClient",
+    "url": "https://chengq1117.github.io/telegramClient/",
     "name": "slotbetBot",
-    "iconUrl": "https://chengq1117.github.io/telegramClient/assets/tapps.png"
+    "iconUrl": "https://chengq1117.github.io/telegramClient/assets/tapps.png",
+    "termsOfUseUrl": "https://ton-connect.github.io/demo-dapp-with-wallet/terms-of-use.txt",
+    "privacyPolicyUrl": "https://ton-connect.github.io/demo-dapp-with-wallet/privacy-policy.txt"
 }
