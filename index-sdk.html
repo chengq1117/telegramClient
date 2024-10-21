@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ton Wallet Demo</title>
+    <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <div align="center">
+            <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
+        </div>
+        <button onclick="connectToWallet();">connectToWallet</button>
+        <button onclick="disconnectWallet();">disconnectWallet</button>
+        <button onclick="sendTransaction();">sendTransaction</button>
+    </main>
+
+    <script>
+        const connector = new TonConnectSDK.TonConnect();
+        connector.restoreConnection();
+
+        async function connectToWallet() {
+            const sources = [
+                {
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge' // Tonkeeper
+                }
+            ];
+
+            connector.connect(sources);
+        }
+
+        async function disconnectWallet() {
+            await connector.disconnect();
+        }
+
+        async function sendTransaction() {
+            if (!connector.connected) {
+                console.log('Please connect wallet to send the transaction!');
+            }
+            
+            const amount = 0.01*1000000000;
+            const transaction = {
+                validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+                messages: [
+                    {
+                        address: "UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x",
+                        amount: amount.toString(),
+                    }
+                ]
+            }
+            
+            const result = await connector.sendTransaction(transaction);
+        }
+    </script>
+
+    <!-- Eruda is console for mobile browsers -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+</body>
+</html>
