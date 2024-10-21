@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Ton Wallet Demo</title>
-    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+    <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
 </head>
 
 <body>
@@ -13,72 +13,47 @@
         <div align="center">
             <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
         </div>
-        <div id="ton-connect"></div>
-        <button onclick="sendTransaction();">sendTransaction2</button>
+        <button onclick="connectToWallet();">connectToWallet</button>
+        <button onclick="disconnectWallet();">disconnectWallet</button>
+        <button onclick="sendTransaction();">sendTransaction</button>
     </main>
 
     <script>
-        //const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        //    manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
-        //    buttonRootId: 'ton-connect',
-        //    chain:'testnet',
-        //    network:'testnet' // 'testnet' 或 'mainnet' 根据环境选择
-        //});
-
-        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-            // manifestUrl: 'https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json',
-            manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
-            buttonRootId: 'ton-connect',
-            chain: 'mainnet',
-            network: 'mainnet', // mainnet
-        });
-
-        tonConnectUI.uiOptions = {
-            twaReturnUrl: 'https://t.me/slotbetBot'
-        };
+        const connector = new TonConnectSDK.TonConnect();
+        connector.restoreConnection();
 
         async function connectToWallet() {
-            const connectedWallet = await tonConnectUI.connectWallet();
-            // Do something with connectedWallet if needed
-            console.log(connectedWallet);
+            const sources = [
+                {
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge' // Tonkeeper
+                }
+            ];
+
+            connector.connect(sources);
         }
 
         async function disconnectWallet() {
-            // 断开钱包
             await tonConnectUI.disconnect();
         }
 
-        function sendTransaction2() {
-            const amount = 0.01*1000000000;
-            const time = Math.floor(Date.now()/1000)+600;
-
-            const paymentRequest = {
-                address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x',
-                amount: amount.toString(), // 支付金额
-            };
-
-            tonConnectUI.sendTransaction({
-                validUtil: time,
-                messages:[paymentRequest],
-            });
-        }
-
         async function sendTransaction() {
+            if (!connector.connected) {
+                console.log('Please connect wallet to send the transaction!');
+            }
+            
             const amount = 0.01*1000000000;
-            const time = Math.floor(Date.now()/1000)+600;
-
-            const paymentRequest = {
-                address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x',
-                amount: amount.toString(), // 支付金额
-            };
-
-            const response = await tonConnectUI.sendTransaction({
-                validUtil: time,
-                messages:[paymentRequest],
-            });
-
-            console.log(`pay succeed! ${response}`);
-        };
+            const transaction = {
+                validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+                messages: [
+                    {
+                        address: "UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x",
+                        amount: amount.toString(),
+                    }
+                ]
+            }
+            
+            const result = await connector.sendTransaction(transaction);
+        }
     </script>
 
     <!-- Eruda is console for mobile browsers -->
