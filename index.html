@@ -23,8 +23,8 @@
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
             buttonRootId: 'ton-connect',
-            chain:'testnet',
-            network:'testnet' // 'testnet' 或 'mainnet' 根据环境选择
+            chain:'mainnet',
+            network:'mainnet' // 'testnet' 或 'mainnet' 根据环境选择
         });
 
         tonConnectUI.uiOptions = {
@@ -47,8 +47,8 @@
             const time = Math.floor(Date.now()/1000)+600;
 
             const paymentRequest = {
-                //address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x', //mainnet
-                address: '0QAd-DYiUmx65rG4lE1--czRFGyqDe6riTGCYXpBmqqTSXi9', //testnet
+                address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x', //mainnet
+                //address: '0QAd-DYiUmx65rG4lE1--czRFGyqDe6riTGCYXpBmqqTSXi9', //testnet
                 amount: amount.toString(), // 支付金额
             };
 
