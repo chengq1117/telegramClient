@@ -33,14 +33,14 @@
 
         async function connectToWallet() {
             const connectedWallet = await tonConnectUI.connectWallet();
-            console.log(`connectedWallet:${currentIsConnectedStatus}`);
+            console.log(`connectedWallet:${connectedWallet}`);
 
             const currentWallet = tonConnectUI.wallet;
             const currentWalletInfo = tonConnectUI.walletInfo;
             const currentAccount = tonConnectUI.account;
             const currentIsConnectedStatus = tonConnectUI.connected;
 
-            console.log(`currentIsConnectedStatus:${currentIsConnectedStatus}`);
+            console.log(`currentWallet:${currentWallet}`);
             console.log(`currentWalletInfo:${currentWalletInfo}`);
             console.log(`currentAccount:${currentAccount}`);
             console.log(`currentIsConnectedStatus:${currentIsConnectedStatus}`);
