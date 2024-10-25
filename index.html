@@ -1,63 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-
-  <title>Cocos Creator | oops-framework</title>
-
-  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
-  <meta name="viewport"
-        content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
-
-  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="format-detection" content="telephone=no">
-
-  <!-- force webkit on 360 -->
-  <meta name="renderer" content="webkit"/>
-  <meta name="force-rendering" content="webkit"/>
-  <!-- force edge on IE -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- force full screen on some browser -->
-  <meta name="full-screen" content="yes"/>
-  <meta name="x5-fullscreen" content="true"/>
-  <meta name="360-fullscreen" content="true"/>
-
-  <!--fix fireball/issues/3568 -->
-  <!--<meta name="browsermode" content="application">-->
-  <meta name="x5-page-mode" content="app">
-
-  <!--<link rel="apple-touch-icon" href=".png" />-->
-  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
-
-  <link rel="stylesheet" type="text/css" href="style.css"/>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ton Wallet Demo</title>
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 </head>
+
 <body>
-  <div id="GameDiv" cc_exact_fit_screen="true">
-      <div id="Cocos3dGameContainer">
-        <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
-      </div>
-    </div>
-  
+    <main>
+        <div align="center">
+            <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
+        </div>
+        <div id="ton-connect"></div>
+        <button onclick="connectToWallet();">connectToWallet</button>
+        <button onclick="disconnectWallet();">disconnectWallet</button>
+        <button onclick="sendTransaction();">mainsendTransaction</button>
+    </main>
 
-<!-- Polyfills bundle. -->
+    <script>
+        const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+            manifestUrl: 'https://chengq1117.github.io/telegramClient/tonconnect-manifest.json',
+            buttonRootId: 'ton-connect',
+            //chain:'mainnet',
+            //network:'mainnet' // 'testnet' 或 'mainnet' 根据环境选择
+        });
 
-<script src="src/polyfills.bundle.js" charset="utf-8"> </script>
+        tonConnectUI.uiOptions = {
+            twaReturnUrl: 'https://t.me/slotbetBot'
+        };
 
+        async function connectToWallet() {
+            const connectedWallet = await tonConnectUI.connectWallet();
+            console.log(connectedWallet);
+            console.log(tonConnectUI.connectedWallet);
+        }
 
-<!-- SystemJS support. -->
-<script src="src/system.bundle.js" charset="utf-8"> </script>
+        async function disconnectWallet() {
+            // 断开钱包
+            await tonConnectUI.disconnect();
+        }
 
-<!-- Import map -->
-<script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
+        async function sendTransaction() {
+            const amount = 0.01*1000000000;
+            const time = Math.floor(Date.now()/1000)+600;
 
-<script>
-    System.import('./index.js').catch(function(err) { console.error(err); })
-</script>
+            const paymentRequest = {
+                address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x', //mainnet
+                //address: '0QAd-DYiUmx65rG4lE1--czRFGyqDe6riTGCYXpBmqqTSXi9', //testnet
+                amount: amount.toString(), // 支付金额
+            };
 
+            const response = await tonConnectUI.sendTransaction({
+                validUtil: time,
+                messages:[paymentRequest],
+            });
+
+            console.log(`pay succeed! ${response}`);
+        };
+    </script>
+
+    <!-- Eruda is console for mobile browsers -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
 </body>
 </html>
