@@ -44,6 +44,7 @@
             console.log(currentWalletInfo);
             console.log(currentAccount);
             console.log(`currentIsConnectedStatus:${currentIsConnectedStatus}`);
+            console.log(Address.parseRaw(address).toString({ testOnly: true, bounceable: false }));
         }
 
         async function disconnectWallet() {
@@ -53,7 +54,7 @@
 
         async function sendTransaction() {
             const amount = 0.01*1000000000;
-            const time = Math.floor(Date.now()/1000)+600;
+            const time = Math.floor(Date.now()/1000)+60;
 
             const paymentRequest = {
                 address: 'UQBn6cqHQ4o1HdDAuv124PkpbuAqrQwnLxgrvz-obX9Dje7x', //mainnet
