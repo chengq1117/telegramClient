@@ -226,18 +226,23 @@
             //const serverHost = "http://198.18.0.1:3000";
             const serverHost = "http://192.168.0.44:3000";
             console.log(`onOpenInvoice serverHost:${serverHost}`);
-            fetch(`${serverHost}/create-stars-invoice`, { method: 'POST' }).then(response => {
-                return response.json();
-            }).then(value => {
-                console.log("starts invoice : ", value);
-                if (value.ok) {
-                    TelegramWebApp.Instance.openInvoice(value.invoiceLink, (result) => {
-                        console.log("buy stars : ", result);
-                    });
-                } else {
-                    console.error('request config failed!');
-                }
-            });
+            
+            try {
+                fetch(`${serverHost}/create-stars-invoice`, { method: 'POST' }).then(response => {
+                    return response.json();
+                }).then(value => {
+                    console.log("starts invoice : ", value);
+                    if (value.ok) {
+                        TelegramWebApp.Instance.openInvoice(value.invoiceLink, (result) => {
+                            console.log("buy stars : ", result);
+                        });
+                    } else {
+                        console.error('request config failed!');
+                    }
+                });
+            } catch (error) {
+                console.error(error)
+            }
 
             //Telegram.WebApp.openInvoice('https://t.me/$oVEPpr4UuVS2AQAAq4gIRCdLlQY', (result) => {
             //    console.log("buy stars : ", result);
