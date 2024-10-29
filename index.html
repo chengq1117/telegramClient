@@ -91,7 +91,7 @@
         <button onclick="connectToWallet();">connectToWallet</button>
         <button onclick="disconnectWallet();">disconnectWallet</button>
         <button onclick="sendTransaction();">sendTransaction</button>
-        <button onclick="onOpenInvoice();">onOpenInvoice</button>
+        <button onclick="onOpenInvoiceDirect();">onOpenInvoice</button>
 
         <div id="ton-connect"></div>
     </main>
@@ -222,11 +222,16 @@
             Telegram.WebApp.showAlert(`pay succeed! ${response}`);
         };
 
+        function onOpenInvoiceDirect() {
+            Telegram.WebApp.openInvoice('https://t.me/$RaD5w3ykAFXrAAAAOvL3WyfVqoU', (result) => {
+                console.log("buy stars : ", result);
+            });
+        }
+
         function onOpenInvoice() {
-            //const serverHost = "http://198.18.0.1:3000";
             const serverHost = "http://192.168.0.44:3000";
             console.log(`onOpenInvoice serverHost:${serverHost}`);
-            
+
             try {
                 fetch(`${serverHost}/create-stars-invoice`, { method: 'POST' }).then(response => {
                     return response.json();
@@ -243,10 +248,6 @@
             } catch (error) {
                 console.error(error)
             }
-
-            //Telegram.WebApp.openInvoice('https://t.me/$oVEPpr4UuVS2AQAAq4gIRCdLlQY', (result) => {
-            //    console.log("buy stars : ", result);
-            //});
         }
     </script>
 
