@@ -223,7 +223,8 @@
         };
 
         function onOpenInvoice() {
-            const serverHost = "http://192.168.0.44:3000";
+            const serverHost = "http://198.18.0.1:3000";
+            //const serverHost = "http://192.168.0.44:3000";
             fetch(`${serverHost}/create-stars-invoice`, { method: 'POST' }).then(response => {
                 return response.json();
             }).then(value => {
