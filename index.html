@@ -114,10 +114,14 @@
         });
         Telegram.WebApp.MainButton.onClick(function () {
             Telegram.WebApp.showAlert('Main Button was clicked')
+            Telegram.WebApp.BackButton.show();
         });	
         Telegram.WebApp.MainButton.show();
 
-        Telegram.WebApp.BackButton.show();
+        Telegram.WebApp.BackButton.onClick(function () {
+            Telegram.WebApp.showAlert('Back Button was clicked')
+            Telegram.WebApp.BackButton.hide();
+        });	
 
         // Function to call showPopup API
         function showPopup() {
